@@ -1,0 +1,42 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, r2_score, mean_squared_error, mean_absolute_error
+from sklearn.preprocessing import LabelEncoder
+
+def perform_random_forest_regression(X, y, test_size, random_state):
+    """
+    Function to perform Random Forest Regression and display results.
+    """
+    # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+
+    # Initialize Random Forest Regressor
+    model = RandomForestRegressor()
+    model.fit(X_train, y_train)
+
+    # Make predictions
+    y_pred = model.predict(X_test)
+
+    st.write("R2 Score: ", r2_score(y_test, y_pred))
+    st.write("Mean Squared Error: ", mean_squared_error(y_test, y_pred))
+    st.write("Mean Absolute Error: ", mean_absolute_error(y_test, y_pred))
+    st.write("Score: ", model.score(X_test, y_test))
+
+    # Display feature importances
+    st.write("Feature Importances:")
+    feature_importances = pd.Series(model.feature_importances_, index=X.columns).sort_values(ascending=False)
+    st.write(feature_importances)
+
+    # Plot feature importances
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x=feature_importances, y=feature_importances.index, ax=ax)
+    ax.set_xlabel('Feature Importance Score')
+    ax.set_ylabel('Features')
+    ax.set_title('Feature Importances')
+    st.pyplot(fig)
