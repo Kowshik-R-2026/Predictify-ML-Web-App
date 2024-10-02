@@ -1,14 +1,4 @@
-# Machine Learning web App
- 
- a Web Application to perform predictions on
-any dataset using Machine Learning algorithms using a
-Streamlit web interface with model import/export, data
-predictions, data visualization, and performance metrics.
-
-Here’s the `README.md` script file in code format:
-
-```markdown
-# Predictify
+# Predictify Machine Learning web App
 
 Predictify is a scalable machine learning web application that allows users to perform data analysis and make predictions on any dataset using a variety of machine learning algorithms. The app supports model import/export, hyperparameter tuning, and provides detailed data visualizations.
 
